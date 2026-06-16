@@ -1,0 +1,22 @@
+name: DevSecOps-Pipeline
+
+on:
+  push:
+    branches: [ "main" ]  # Mỗi khi push code lên nhánh main thì pipeline sẽ chạy
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Lay ma nguon tu GitHub
+      uses: actions/checkout@v3
+
+    - name: 2. Chay quet ma nguon tinh (SAST) bang Trivy
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'                # Quét trên thư mục hệ thống (File System)
+        security-checks: 'secret'       # Tập trung tìm các mã bí mật, mật khẩu bị lộ
+        format: 'table'                # Hiển thị kết quả dạng bảng cho thầy dễ nhìn
+        exit-code: '1'                 # MẸO SỐNG CÒN: Trả về lỗi (Báo Đỏ) nếu tìm thấy lỗ hổng
+        severity: 'HIGH,CRITICAL'      # Chỉ bắt các lỗi ở mức độ nặng và cực kỳ nghiêm trọng
