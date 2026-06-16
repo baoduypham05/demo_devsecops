@@ -16,7 +16,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         scan-type: 'fs'                # Quét trên thư mục hệ thống (File System)
-        security-checks: 'secret'       # Tập trung tìm các mã bí mật, mật khẩu bị lộ
+        security-checks: 'secrets'       # Tập trung tìm các mã bí mật, mật khẩu bị lộ
         format: 'table'                # Hiển thị kết quả dạng bảng cho thầy dễ nhìn
         exit-code: '1'                 # MẸO SỐNG CÒN: Trả về lỗi (Báo Đỏ) nếu tìm thấy lỗ hổng
         severity: 'HIGH,CRITICAL'      # Chỉ bắt các lỗi ở mức độ nặng và cực kỳ nghiêm trọng
